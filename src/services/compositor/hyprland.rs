@@ -172,6 +172,8 @@ fn fetch_full_state(internal_state: &HyprInternalState) -> Result<CompositorStat
         title: w.title,
         class: w.class,
         address: w.address.to_string(),
+        initial_title: w.initial_title,
+        initial_class: w.initial_class,
     });
 
     let keyboard_layout = Devices::get()

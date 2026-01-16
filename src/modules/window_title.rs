@@ -58,6 +58,8 @@ impl WindowTitle {
                 let raw_title = match self.config.mode {
                     WindowTitleMode::Title => &w.title,
                     WindowTitleMode::Class => &w.class,
+                    WindowTitleMode::InitialTitle => &w.initial_title,
+                    WindowTitleMode::InitialClass => &w.initial_class,
                 };
 
                 if self.config.truncate_title_after_length > 0 {

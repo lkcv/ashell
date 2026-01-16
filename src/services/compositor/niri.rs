@@ -245,6 +245,9 @@ fn map_state(niri: &EventStreamState) -> CompositorState {
             title: w.title.clone().unwrap_or_default(),
             class: w.app_id.clone().unwrap_or_default(),
             address: w.id.to_string(),
+            //these will just print the title and class respectively since the niri ipc doesn't expose these yet
+            initial_title: w.title.clone().unwrap_or_default(),
+            initial_class: w.app_id.clone().unwrap_or_default(),
         });
 
     let keyboard_layout = niri.keyboard_layouts.keyboard_layouts.as_ref().map_or_else(
