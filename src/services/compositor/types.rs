@@ -21,6 +21,8 @@ pub struct ActiveWindow {
     pub title: String,
     pub class: String,
     pub address: String,
+    pub initial_title: String,
+    pub initial_class: String,
 }
 
 #[derive(Debug, Clone, Default)]
