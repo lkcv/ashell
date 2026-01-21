@@ -17,12 +17,55 @@ pub struct CompositorMonitor {
 }
 
 #[derive(Debug, Clone, PartialEq, Default)]
-pub struct ActiveWindow {
+pub struct ActiveWindowHyprland {
     pub title: String,
     pub class: String,
     pub address: String,
     pub initial_title: String,
     pub initial_class: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Default)]
+pub struct ActiveWindowNiri {
+    pub title: String,
+    pub class: String,
+    pub address: String,
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum ActiveWindow {
+    Hyprland(ActiveWindowHyprland),
+    Niri(ActiveWindowNiri),
+}
+
+impl ActiveWindow {
+    pub fn title(&self) -> &str {
+        match self {
+            ActiveWindow::Hyprland(w) => &w.title,
+            ActiveWindow::Niri(w) => &w.title,
+        }
+    }
+
+    pub fn class(&self) -> &str {
+        match self {
+            ActiveWindow::Hyprland(w) => &w.class,
+            ActiveWindow::Niri(w) => &w.class,
+        }
+    }
+
+    pub fn initial_title(&self) -> Option<&str> {
+        match self {
+            ActiveWindow::Hyprland(w) => Some(&w.initial_title),
+            ActiveWindow::Niri(_) => None,
+        }
+    }
+
+    pub fn initial_class(&self) -> Option<&str> {
+        match self {
+            ActiveWindow::Hyprland(w) => Some(&w.initial_class),
+            ActiveWindow::Niri(_) => None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default)]

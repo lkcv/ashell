@@ -1,5 +1,5 @@
 use super::types::{
-    ActiveWindow, CompositorCommand, CompositorEvent, CompositorMonitor, CompositorService,
+    ActiveWindow, ActiveWindowNiri, CompositorCommand, CompositorEvent, CompositorMonitor, CompositorService,
     CompositorState, CompositorWorkspace,
 };
 use crate::services::ServiceEvent;
@@ -241,14 +241,11 @@ fn map_state(niri: &EventStreamState) -> CompositorState {
         .windows
         .values()
         .find(|w| w.is_focused)
-        .map(|w| ActiveWindow {
+        .map(|w| ActiveWindow::Niri(ActiveWindowNiri {
             title: w.title.clone().unwrap_or_default(),
             class: w.app_id.clone().unwrap_or_default(),
             address: w.id.to_string(),
-            //these will just print the title and class respectively since the niri ipc doesn't expose these yet
-            initial_title: w.title.clone().unwrap_or_default(),
-            initial_class: w.app_id.clone().unwrap_or_default(),
-        });
+        }));
 
     let keyboard_layout = niri.keyboard_layouts.keyboard_layouts.as_ref().map_or_else(
         || "Unknown".to_string(),
