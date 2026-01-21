@@ -53,17 +53,17 @@ impl ActiveWindow {
         }
     }
 
-    pub fn initial_title(&self) -> Option<&str> {
+    pub fn initial_title(&self) -> Result<&str, &str> {
         match self {
-            ActiveWindow::Hyprland(w) => Some(&w.initial_title),
-            ActiveWindow::Niri(_) => None,
+            ActiveWindow::Hyprland(w) => Ok(&w.initial_title),
+            ActiveWindow::Niri(_) => Err("InitialTitle isn't supported on Niri"),
         }
     }
 
-    pub fn initial_class(&self) -> Option<&str> {
+    pub fn initial_class(&self) -> Result<&str, &str> {
         match self {
-            ActiveWindow::Hyprland(w) => Some(&w.initial_class),
-            ActiveWindow::Niri(_) => None,
+            ActiveWindow::Hyprland(w) => Ok(&w.initial_class),
+            ActiveWindow::Niri(_) => Err("InitialClass isn't supported on Niri"),
         }
     }
 }

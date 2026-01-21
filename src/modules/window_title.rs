@@ -58,8 +58,20 @@ impl WindowTitle {
                 let raw_title = match self.config.mode {
                     WindowTitleMode::Title => w.title(),
                     WindowTitleMode::Class => w.class(),
-                    WindowTitleMode::InitialTitle => w.initial_title().unwrap_or(""),
-                    WindowTitleMode::InitialClass => w.initial_class().unwrap_or(""),
+                    WindowTitleMode::InitialTitle => match w.initial_title() {
+                        Ok(v) => v,
+                        Err(e) => {
+                            log::warn!("{}", e);
+                            ""
+                        }
+                    },
+                    WindowTitleMode::InitialClass => match w.initial_class() {
+                        Ok(v) => v,
+                        Err(e) => {
+                            log::warn!("{}", e);
+                            ""
+                        }
+                    },
                 };
 
                 if self.config.truncate_title_after_length > 0 {
